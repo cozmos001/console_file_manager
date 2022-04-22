@@ -16,8 +16,11 @@
 Так же можно добавить любой дополнительный функционал по желанию.
 """
 
-from required_functions import create_folder, delite_file_folder, copy_file_folder, \
-    content, folders_only, file_only, os_info, test, my_bank, change_dir
+from file_manager_functions import create_folder, delite_file_folder, copy_file_folder, \
+    content, folders_only, file_only, os_info, author_info, change_dir
+from victorina import run_victorina
+from my_bank import run_my_bank
+import os
 
 while True:
     print('1 - создать папку')
@@ -52,25 +55,27 @@ while True:
         print(content())
 
     elif choice == '5':
-        folders_only()
+        print(folders_only())
 
     elif choice == '6':
-        file_only()
+        print(file_only())
 
     elif choice == '7':
-        os_info()
+        print(os_info())
 
     elif choice == '8':
-        print('Создатель программы Александр Тронин')
+        print(author_info())
 
     elif choice == '9':
-        test()
+        run_victorina()
 
     elif choice == '10':
-        my_bank()
+        run_my_bank()
 
     elif choice == '11':
-        change_dir()
+        print(f'Текущая рабочая директория: {os.getcwd()}')
+        directory = input('Введите название директории или путь(для перехода в предыдущую введите: ..): ')
+        print(change_dir(directory))
 
     elif choice == '12':
         break
