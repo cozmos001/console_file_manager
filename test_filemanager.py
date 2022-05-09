@@ -1,7 +1,12 @@
 from file_manager_functions import create_folder, delite_file_folder, copy_file_folder, \
-    content, folders_only, file_only, os_info, author_info, change_dir
+    content, folders_only, file_only, os_info, author_info, change_dir, separator
 from victorina import date_to_text
 import os
+
+
+def test_separator():
+    assert type(separator()) == str
+    assert separator(3) == '***'
 
 
 def test_create_folder():
@@ -73,6 +78,7 @@ def test_author_info():
 def test_date_to_text():
     assert date_to_text('01.06.1996') == 'первое июня 1996 года.'
 
+
 def test_change_dir():
     os.mkdir('check')  # Создаем папку
     open('check1', 'w')  # Создаем файл
@@ -82,4 +88,3 @@ def test_change_dir():
     assert change_dir('check1') == f'check1 не является директорией'
     os.rmdir('check')  # Удаляем папку
     os.remove('check1')
-
