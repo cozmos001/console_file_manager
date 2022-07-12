@@ -39,7 +39,7 @@ def test_copy_file_folder():
     assert 'check_copy' in os.listdir()
     os.remove('check')
     os.remove('check_copy')
-    assert copy_file_folder('check', 'check_copy') == 'Файл/папка не найдена!'
+    assert copy_file_folder('check', 'check_copy') == 'Файл/папка не найден!'
 
 
 def test_content():
