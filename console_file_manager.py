@@ -16,26 +16,17 @@
 Так же можно добавить любой дополнительный функционал по желанию.
 """
 
-from file_manager_functions import create_folder, delite_file_folder, copy_file_folder, \
-    content, folders_only, file_only, os_info, author_info, change_dir
+from file_manager_functions import print_menu, create_folder, delite_file_folder, copy_file_folder, \
+    content, folders_only, file_only, os_info, author_info, change_dir, separator
+
 from victorina import run_victorina
 from my_bank import run_my_bank
 import os
 
 while True:
-    print('1 - создать папку')
-    print('2 - удалить (файл/папку)')
-    print('3 - копировать (файл/папку)')
-    print('4 - просмотр содержимого рабочей директории')
-    print('5 - посмотреть только папки')
-    print('6 - посмотреть только файлы')
-    print('7 - просмотр информации об операционной системе')
-    print('8 - создатель программы')
-    print('9 - играть в викторину')
-    print('10 - мой банковский счет')
-    print('11 - смена рабочей директории')
-    print('12 - выход')
-
+    print(separator())
+    print_menu()
+    print(separator())
     choice = input('Выберите пункт меню: ')
 
     if choice == '1':
@@ -55,29 +46,34 @@ while True:
         print(content())
 
     elif choice == '5':
+        work_dir = f'file: {file_only()}\ndirs: {folders_only()}'
+        with open('listdir.txt', 'w') as f:
+            f.write(work_dir)
+        print('Содержимое рабочей директории сохранено в файл listdir.txt')
+    elif choice == '6':
         print(folders_only())
 
-    elif choice == '6':
+    elif choice == '7':
         print(file_only())
 
-    elif choice == '7':
+    elif choice == '8':
         print(os_info())
 
-    elif choice == '8':
+    elif choice == '9':
         print(author_info())
 
-    elif choice == '9':
+    elif choice == '10':
         run_victorina()
 
-    elif choice == '10':
+    elif choice == '11':
         run_my_bank()
 
-    elif choice == '11':
+    elif choice == '12':
         print(f'Текущая рабочая директория: {os.getcwd()}')
         directory = input('Введите название директории или путь(для перехода в предыдущую введите: ..): ')
         print(change_dir(directory))
 
-    elif choice == '12':
+    elif choice == '13':
         break
 
     else:
