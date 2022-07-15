@@ -1,32 +1,12 @@
-"""
-2. В проекте реализовать следующий функционал:
-После запуска программы пользователь видит меню, состоящее из следующих пунктов:
-- создать папку;
-- удалить (файл/папку);
-- копировать (файл/папку);
-- просмотр содержимого рабочей директории;
-- посмотреть только папки;
-- посмотреть только файлы;
-- просмотр информации об операционной системе;
-- создатель программы;
-- играть в викторину;
-- мой банковский счет;
-- смена рабочей директории (*необязательный пункт);
-- выход.
-Так же можно добавить любой дополнительный функционал по желанию.
-"""
+import os
 
 from file_manager_functions import print_menu, create_folder, delite_file_folder, copy_file_folder, \
     content, folders_only, file_only, os_info, author_info, change_dir, separator
-
-from victorina import run_victorina
 from my_bank import run_my_bank
-import os
+from victorina import run_victorina
 
 while True:
-    print(separator())
     print_menu()
-    print(separator())
     choice = input('Выберите пункт меню: ')
 
     if choice == '1':
@@ -43,18 +23,22 @@ while True:
         print(copy_file_folder(name, new_name))
 
     elif choice == '4':
-        print(content())
+        for obj in content():
+            print(obj)
 
     elif choice == '5':
         work_dir = f'file: {file_only()}\ndirs: {folders_only()}'
         with open('listdir.txt', 'w') as f:
             f.write(work_dir)
         print('Содержимое рабочей директории сохранено в файл listdir.txt')
+
     elif choice == '6':
-        print(folders_only())
+        for folder in folders_only():
+            print(folder)
 
     elif choice == '7':
-        print(file_only())
+        for file in file_only():
+            print(file)
 
     elif choice == '8':
         print(os_info())

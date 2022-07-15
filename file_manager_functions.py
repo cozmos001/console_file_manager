@@ -32,18 +32,34 @@ menu_items = (
     EXIT
 )
 
+'''
+Декоратор для меню
+'''
+
+
+def add_separator(func):
+    def inner(*args, **kwargs):
+        print('*' * 30)
+        result = func(*args, **kwargs)
+        print('*' * 30)
+        return result
+
+    return inner
+
 
 def separator(count=30):
+    """
+    Функция разделитель
+    :param count: количество '*' в разделителе
+    :return: строка с '*' в зависимости от count
+    """
     return '*' * count
 
 
-def print_menu():
-    for number, item in enumerate(menu_items, 1):
-        print(f'{number} - {item}')
+"""
+Функция вывода меню
 
-
-'''
-Альтернативный вариант с выводом меню
+Альтернативный вариант функции с выводом меню
 def print_menu():
     print(separator())
     print('1 - создать папку')
@@ -60,15 +76,26 @@ def print_menu():
     print('12 - смена рабочей директории')
     print('13 - выход')
     print(separator())
-'''
-
-"""
-Функция создания папки - 1
 """
 
+
+@add_separator
+def print_menu():
+    """
+    Функция вывода меню
+    Выводит название пункта меню и порядковый номер
+    :return: None
+    """
+    for number, item in enumerate(menu_items, 1):
+        print(f'{number} - {item}')
+
+
+"""
+Вариант с проверкой на существование
 
 def create_folder(name):
     '''
+    Функция создания папки 
     :param name: имя создаваемой папки
     :return: Сообщение: Папка создана! или Папка уже существует!
     '''
@@ -79,14 +106,31 @@ def create_folder(name):
         return 'Папка создана!'
     else:
         return 'Папка уже существует!'
+"""
 
 
-"""
-Функция удаления файла/папки - 2
-"""
+def create_folder(name):
+    """
+    Функция создания папки
+    :param name: имя создаваемой папки
+    :return: Сообщение: Папка создана! или Папка уже существует!
+    """
+    try:
+        os.mkdir(name)
+        return 'Папка создана!'
+    except FileExistsError:
+        return 'Папка уже существует!'
 
 
 def delite_file_folder(name):
+    """
+    Функция удаления файла/папки
+    :param name: имя файла/папки
+    :return: Сообщение 'Папка удалена!' если папка удалена
+             Сообщение 'Папка не пуста!' если папка не пуста
+             Сообщение 'Файл удален!' если файл удален
+             Сообщение 'Файл/папка не найден!' если файл/папка не найдены
+    """
     if os.path.isdir(name):
         try:
             os.rmdir(name)
@@ -97,15 +141,18 @@ def delite_file_folder(name):
         os.remove(name)
         return 'Файл удален!'
     else:
-        return 'Файл/папка не найден!'
-
-
-"""
-Функция копирования файла/папки - 3
-"""
+        return 'Файл/папка не найдены!'
 
 
 def copy_file_folder(name, new_name):
+    """
+    Функция копирования файла/папки
+    :param name: Имя файла/папки которую надо скопировать
+    :param new_name: Новое имя файла/папки
+    :return: Сообщение 'Папка скопирована!' если папка скопирована
+             Сообщение 'Файл скопирован!' если файл скопирован
+             Сообщение 'Файл/папка не найден!' если файл/папка не найдены
+    """
     try:
         if os.path.isdir(name):
             shutil.copytree(name, new_name)
@@ -114,27 +161,26 @@ def copy_file_folder(name, new_name):
             shutil.copy(name, new_name)
             return 'Файл скопирован!'
     except FileNotFoundError:
-        return 'Файл/папка не найдена!'
-
-
-"""
-Функция просмотра содержимого рабочей директории - 4
-"""
+        return 'Файл/папка не найдены!'
 
 
 def content():
+    """
+    Функция просмотра содержимого рабочей директории
+    :return: Сообщение 'Директория пуста!' если директория пуста
+             Содержимое рабочей директории если в ней что-то есть
+    """
     if len(os.listdir()) == 0:
         return 'Директория пуста!'
     else:
         return os.listdir()
 
 
-"""
-Функция просмотра содержимого - только папки - 5
-"""
-
-
 def folders_only():
+    """
+    Функция просмотра содержимого - только папки
+    :return: Списое с папками в рабочей директории
+    """
     folders = []
     for obj in os.listdir():
         if os.path.isdir(obj):
@@ -142,12 +188,11 @@ def folders_only():
     return folders
 
 
-"""
-Функция просмотра содержимого - только файлы - 6
-"""
-
-
 def file_only():
+    """
+    Функция просмотра содержимого - только файлы
+    :return: Список с файлами в рабочей директории
+    """
     file = []
     for obj in os.listdir():
         if os.path.isfile(obj):
@@ -155,12 +200,13 @@ def file_only():
     return file
 
 
-"""
-функция вывода информации об операционной системе - 7
-"""
-
-
 def os_info():
+    """
+    Функция вывода информации об операционной системе
+    :return: Сообщение 'Linux' если операционная система Lunux
+             Сообщение 'OS X' если операционная система OS X
+             Сообщение 'Windows' если операционная система Windows
+    """
     if sys.platform == 'linux' or sys.platform == 'linux2':
         return 'Linux'
     elif sys.platform == 'darwin':
@@ -169,27 +215,29 @@ def os_info():
         return 'Windows'
 
 
-"""
-Функция о создателе программы
-"""
-
-
 def author_info():
+    """
+    Функция о создателе программы
+    :return: Сообщение 'Author Aleksandr Tronin'
+    """
     return 'Author Aleksandr Tronin'
 
 
-"""
-Функция смены рабочей директории 
-"""
-
-
 def change_dir(directory):
+    """
+    Функция смены рабочей директории
+    :param directory: Директория в которую надо перейти
+    :return: Сообщение 'Текущая рабочая директория:' и имя директории
+             Сообщение 'Директория: {directory} не существует' если дирректория не существует
+             Сообщение '{directory} не является директорией' если дирректория не является директорией
+             Сообщение 'У вас нет разрешений для перехода на {directory}' если нет разрешения для перехода
+    """
     try:
         os.chdir(directory)
         return f'Текущая рабочая директория: {os.getcwd()}'
-    except FileNotFoundError:
-        return f'Директория: {directory} не существует'
     except NotADirectoryError:
         return f'{directory} не является директорией'
     except PermissionError:
         return f'У вас нет разрешений для перехода на {directory}'
+    except FileNotFoundError:
+        return f'Директория: {directory} не существует'

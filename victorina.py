@@ -39,7 +39,7 @@ def run_victorina():
     play = True
     while play == True:
         # Выбор пяти случайных людей из списка
-        results = random.sample(list(dict_people.keys()), 3)
+        results = random.sample(list(dict_people.keys()), 5)
         win = 0
         lose = 0
         for item in results:
@@ -55,7 +55,7 @@ def run_victorina():
         print(f'Правельных ответов: {win}, неправильных ответов: {lose}')
 
         while True:
-            again = input('Хотите попробовать еще раз? ')
+            again = input('Хотите попробовать еще раз? y/n')
             if 'y' in again.lower() or 'д' in again.lower():
                 play = True
                 break

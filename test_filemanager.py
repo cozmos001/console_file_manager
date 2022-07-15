@@ -10,10 +10,10 @@ def test_separator():
 
 
 def test_create_folder():
-    assert create_folder('prob') == 'Папка создана!'
-    assert 'prob' in os.listdir()
-    assert create_folder('prob') == 'Папка уже существует!'
-    os.rmdir('prob')
+    assert create_folder('check') == 'Папка создана!'
+    assert 'check' in os.listdir()
+    assert create_folder('check') == 'Папка уже существует!'
+    os.rmdir('check')
 
 
 def test_delite_file_folder():
@@ -22,7 +22,7 @@ def test_delite_file_folder():
     assert delite_file_folder('check') == 'Папка не пуста!'  # Пробуем удалить папку
     assert delite_file_folder('check/check') == 'Файл удален!'  # Удаляем файл
     assert 'check' not in os.listdir('check/')  # Проверка на наличие удаленного файла
-    assert delite_file_folder('check/check') == 'Файл/папка не найден!'  # # Проверка на наличие удаленного файла
+    assert delite_file_folder('check/check') == 'Файл/папка не найдены!'  # # Проверка на наличие удаленного файла
     assert delite_file_folder('check') == 'Папка удалена!'  # Удаляем папку
     assert 'check' not in os.listdir()  # Проверка на наличие удаленной папки
     assert delite_file_folder('check')  # Проверка на наличие удаленной папки
@@ -39,7 +39,7 @@ def test_copy_file_folder():
     assert 'check_copy' in os.listdir()
     os.remove('check')
     os.remove('check_copy')
-    assert copy_file_folder('check', 'check_copy') == 'Файл/папка не найдена!'
+    assert copy_file_folder('check', 'check_copy') == 'Файл/папка не найдены!'
 
 
 def test_content():
